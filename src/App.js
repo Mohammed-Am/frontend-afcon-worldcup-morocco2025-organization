@@ -28,8 +28,8 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/teams" element={<TeamsPage />} />
             <Route path="/matches" element={<MatchesPage />} />
+            <Route path="/tickets" element={<TicketsPage />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/tickets" element={<TicketsPage />} />
             </Route>
             <Route path="/change-password" element={<ChangePasswordPage />} />
           </Routes>
