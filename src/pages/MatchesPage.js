@@ -35,8 +35,8 @@ const MatchesPage = () => {
   const fetchData = async () => {
     try {
       const [matchesResponse, teamsResponse] = await Promise.all([
-        axios.get('http://localhost:5000/matches'),
-        axios.get('http://localhost:5000/teams')
+        axios.get(`${process.env.REACT_APP_API_URL}/matches`),
+        axios.get(`${process.env.REACT_APP_API_URL}/teams`)
       ]);
       setMatches(matchesResponse.data);
       setTeams(teamsResponse.data);
@@ -54,7 +54,7 @@ const MatchesPage = () => {
   const handleAddMatch = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/matches/add', newMatch);
+      await axios.post(`${process.env.REACT_APP_API_URL}/matches/add`, newMatch);
       setNewMatch({ teamA: '', teamB: '', date: '', venue: '' });
       fetchData(); // Refresh the list of matches and teams
     } catch (err) {
@@ -64,7 +64,7 @@ const MatchesPage = () => {
 
   const handleDeleteMatch = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/matches/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/matches/${id}`);
       fetchData(); // Refresh the list of matches and teams
     } catch (err) {
       setError('Error deleting match.');

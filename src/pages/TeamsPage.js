@@ -28,7 +28,7 @@ const TeamsPage = () => {
 
   const fetchTeams = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/teams');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/teams`);
       setTeams(response.data);
       setLoading(false);
     } catch (err) {
@@ -44,7 +44,7 @@ const TeamsPage = () => {
   const handleAddTeam = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/teams/add', newTeam);
+      await axios.post(`${process.env.REACT_APP_API_URL}/teams/add`, newTeam);
       setNewTeam({ name: '', country: '', logoUrl: '' });
       fetchTeams(); // Refresh the list of teams
     } catch (err) {
@@ -54,7 +54,7 @@ const TeamsPage = () => {
 
   const handleDeleteTeam = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/teams/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/teams/${id}`);
       fetchTeams(); // Refresh the list of teams
     } catch (err) {
       setError('Error deleting team.');

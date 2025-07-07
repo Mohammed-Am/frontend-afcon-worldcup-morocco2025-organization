@@ -21,7 +21,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/users/login', formData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, formData);
       login(response.data.user); // Pass user data to auth context
       navigate('/'); // Redirect to home page on successful login
     } catch (err) {

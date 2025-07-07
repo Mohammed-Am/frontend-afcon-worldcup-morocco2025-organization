@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/users/me');
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/me`);
         setIsLoggedIn(true);
         setUser(res.data);
       } catch (err) {
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('http://localhost:5000/users/logout');
+      await axios.post(`${process.env.REACT_APP_API_URL}/users/logout`);
       setIsLoggedIn(false);
       setUser(null);
     } catch (err) {

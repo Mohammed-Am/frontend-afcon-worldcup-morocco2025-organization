@@ -18,7 +18,7 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/users/add', formData)
+    axios.post(`${process.env.REACT_APP_API_URL}/users/add`, formData)
       .then(response => {
         setSuccess('User registered successfully!');
         setError('');

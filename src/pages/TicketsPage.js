@@ -35,9 +35,9 @@ const TicketsPage = () => {
   const fetchData = async () => {
     try {
       const [ticketsResponse, usersResponse, matchesResponse] = await Promise.all([
-        axios.get('http://localhost:5000/tickets'),
-        axios.get('http://localhost:5000/users'),
-        axios.get('http://localhost:5000/matches')
+        axios.get(`${process.env.REACT_APP_API_URL}/tickets`),
+        axios.get(`${process.env.REACT_APP_API_URL}/users`),
+        axios.get(`${process.env.REACT_APP_API_URL}/matches`)
       ]);
       setTickets(ticketsResponse.data);
       setUsers(usersResponse.data);
@@ -56,7 +56,7 @@ const TicketsPage = () => {
   const handleAddTicket = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/tickets/add', newTicket);
+      await axios.post(`${process.env.REACT_APP_API_URL}/tickets/add`, newTicket);
       setNewTicket({ user: '', match: '', seatNumber: '' });
       fetchData(); // Refresh the list of tickets
     } catch (err) {

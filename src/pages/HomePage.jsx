@@ -25,7 +25,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchLocalMatches = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/matches');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/matches`);
         setMatches(response.data);
         setLoading(false);
       } catch (err) {
