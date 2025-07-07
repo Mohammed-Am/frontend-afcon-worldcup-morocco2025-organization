@@ -3,6 +3,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { gsap } from 'gsap';
 
+// Helper function to get the API base URL and remove trailing slash if present
+const getApiBaseUrl = () => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  if (baseUrl && baseUrl.endsWith('/')) {
+    return baseUrl.slice(0, -1);
+  }
+  return baseUrl;
+};
+
 const MatchesPage = () => {
   const [matches, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
@@ -35,8 +44,8 @@ const MatchesPage = () => {
   const fetchData = async () => {
     try {
       const [matchesResponse, teamsResponse] = await Promise.all([
-        axios.get(`${process.env.REACT_APP_API_URL}/matches`),
-        axios.get(`${process.env.REACT_APP_API_URL}/teams`)
+        axios.get(`${getApiBaseUrl()}/matches`),
+        axios.get(`${getApiBaseUrl()}/teams`)
       ]);
       setMatches(matchesResponse.data);
       setTeams(teamsResponse.data);
@@ -54,7 +63,7 @@ const MatchesPage = () => {
   const handleAddMatch = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/matches/add`, newMatch);
+      await axios.post(`${getApiBaseUrl()}/matches/add`, newMatch);
       setNewMatch({ teamA: '', teamB: '', date: '', venue: '' });
       fetchData(); // Refresh the list of matches and teams
     } catch (err) {
@@ -64,7 +73,7 @@ const MatchesPage = () => {
 
   const handleDeleteMatch = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/matches/${id}`);
+      await axios.delete(`${getApiBaseUrl()}/matches/${id}`);
       fetchData(); // Refresh the list of matches and teams
     } catch (err) {
       setError('Error deleting match.');

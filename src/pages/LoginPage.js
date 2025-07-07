@@ -5,6 +5,15 @@ import { gsap } from 'gsap';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+// Helper function to get the API base URL and remove trailing slash if present
+const getApiBaseUrl = () => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  if (baseUrl && baseUrl.endsWith('/')) {
+    return baseUrl.slice(0, -1);
+  }
+  return baseUrl;
+};
+
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -21,7 +30,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, formData);
+      const response = await axios.post(`${getApiBaseUrl()}/users/login`, formData);
       login(response.data.user); // Pass user data to auth context
       navigate('/'); // Redirect to home page on successful login
     } catch (err) {

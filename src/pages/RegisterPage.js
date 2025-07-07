@@ -3,6 +3,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { gsap } from 'gsap';
 
+// Helper function to get the API base URL and remove trailing slash if present
+const getApiBaseUrl = () => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  if (baseUrl && baseUrl.endsWith('/')) {
+    return baseUrl.slice(0, -1);
+  }
+  return baseUrl;
+};
+
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -18,7 +27,7 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`${process.env.REACT_APP_API_URL}/users/add`, formData)
+    axios.post(`${getApiBaseUrl()}/users/add`, formData)
       .then(response => {
         setSuccess('User registered successfully!');
         setError('');

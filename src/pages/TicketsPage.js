@@ -3,6 +3,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { gsap } from 'gsap';
 
+// Helper function to get the API base URL and remove trailing slash if present
+const getApiBaseUrl = () => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  if (baseUrl && baseUrl.endsWith('/')) {
+    return baseUrl.slice(0, -1);
+  }
+  return baseUrl;
+};
+
 const TicketsPage = () => {
   const [tickets, setTickets] = useState([]);
   const [users, setUsers] = useState([]);
@@ -35,9 +44,9 @@ const TicketsPage = () => {
   const fetchData = async () => {
     try {
       const [ticketsResponse, usersResponse, matchesResponse] = await Promise.all([
-        axios.get(`${process.env.REACT_APP_API_URL}/tickets`),
-        axios.get(`${process.env.REACT_APP_API_URL}/users`),
-        axios.get(`${process.env.REACT_APP_API_URL}/matches`)
+        axios.get(`${getApiBaseUrl()}/tickets`),
+        axios.get(`${getApiBaseUrl()}/users`),
+        axios.get(`${getApiBaseUrl()}/matches`)
       ]);
       setTickets(ticketsResponse.data);
       setUsers(usersResponse.data);
@@ -56,7 +65,7 @@ const TicketsPage = () => {
   const handleAddTicket = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/tickets/add`, newTicket);
+      await axios.post(`${getApiBaseUrl()}/tickets/add`, newTicket);
       setNewTicket({ user: '', match: '', seatNumber: '' });
       fetchData(); // Refresh the list of tickets
     } catch (err) {
@@ -66,7 +75,7 @@ const TicketsPage = () => {
 
   const handleDeleteTicket = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/tickets/${id}`);
+      await axios.delete(`${getApiBaseUrl()}/tickets/${id}`);
       fetchData(); // Refresh the list of tickets
     } catch (err) {
       setError('Error deleting ticket.');

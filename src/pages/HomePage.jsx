@@ -5,6 +5,15 @@ import { gsap } from 'gsap';
 
 console.log('GSAP object:', gsap);
 
+// Helper function to get the API base URL and remove trailing slash if present
+const getApiBaseUrl = () => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  if (baseUrl && baseUrl.endsWith('/')) {
+    return baseUrl.slice(0, -1);
+  }
+  return baseUrl;
+};
+
 const HomePage = () => {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +34,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchLocalMatches = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/matches`);
+        const response = await axios.get(`${getApiBaseUrl()}/matches`);
         setMatches(response.data);
         setLoading(false);
       } catch (err) {

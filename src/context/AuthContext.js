@@ -4,6 +4,15 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
+// Helper function to get the API base URL and remove trailing slash if present
+const getApiBaseUrl = () => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  if (baseUrl && baseUrl.endsWith('/')) {
+    return baseUrl.slice(0, -1);
+  }
+  return baseUrl;
+};
+
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
@@ -12,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/me`);
+        const res = await axios.get(`${getApiBaseUrl()}/users/me`);
         setIsLoggedIn(true);
         setUser(res.data);
       } catch (err) {
@@ -33,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/users/logout`);
+      await axios.post(`${getApiBaseUrl()}/users/logout`);
       setIsLoggedIn(false);
       setUser(null);
     } catch (err) {

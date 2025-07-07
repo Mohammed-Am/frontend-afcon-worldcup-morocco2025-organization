@@ -3,6 +3,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { gsap } from 'gsap';
 
+// Helper function to get the API base URL and remove trailing slash if present
+const getApiBaseUrl = () => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  if (baseUrl && baseUrl.endsWith('/')) {
+    return baseUrl.slice(0, -1);
+  }
+  return baseUrl;
+};
+
 const TeamsPage = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,7 +37,7 @@ const TeamsPage = () => {
 
   const fetchTeams = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/teams`);
+      const response = await axios.get(`${getApiBaseUrl()}/teams`);
       setTeams(response.data);
       setLoading(false);
     } catch (err) {
@@ -44,7 +53,7 @@ const TeamsPage = () => {
   const handleAddTeam = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/teams/add`, newTeam);
+      await axios.post(`${getApiBaseUrl()}/teams/add`, newTeam);
       setNewTeam({ name: '', country: '', logoUrl: '' });
       fetchTeams(); // Refresh the list of teams
     } catch (err) {
@@ -54,7 +63,7 @@ const TeamsPage = () => {
 
   const handleDeleteTeam = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/teams/${id}`);
+      await axios.delete(`${getApiBaseUrl()}/teams/${id}`);
       fetchTeams(); // Refresh the list of teams
     } catch (err) {
       setError('Error deleting team.');
