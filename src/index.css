@@ -1,13 +1,11 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+                @container(max-width:120px){.table-fe762f65-3e56-4721-9a0b-756ec07fbff6-column-120{display: none;}}
+                @container(max-width:240px){.table-fe762f65-3e56-4721-9a0b-756ec07fbff6-column-240{display: none;}}
+                @container(max-width:360px){.table-fe762f65-3e56-4721-9a0b-756ec07fbff6-column-360{display: none;}}
+                @container(max-width:480px){.table-fe762f65-3e56-4721-9a0b-756ec07fbff6-column-480{display: none;}}
+                @container(max-width:120px){.table-c633aebc-e5c1-4b37-a051-3092cd5965fc-column-120{display: none;}}
+                @container(max-width:240px){.table-c633aebc-e5c1-4b37-a051-3092cd5965fc-column-240{display: none;}}
+                @container(max-width:360px){.table-c633aebc-e5c1-4b37-a051-3092cd5965fc-column-360{display: none;}}
+                @container(max-width:480px){.table-c633aebc-e5c1-4b37-a051-3092cd5965fc-column-480{display: none;}}
+                @container(max-width:600px){.table-c633aebc-e5c1-4b37-a051-3092cd5965fc-column-600{display: none;}}
+                @container(max-width:720px){.table-c633aebc-e5c1-4b37-a051-3092cd5965fc-column-720{display: none;}}
+                @container(max-width:840px){.table-c633aebc-e5c1-4b37-a051-3092cd5965fc-column-840{display: none;}}
